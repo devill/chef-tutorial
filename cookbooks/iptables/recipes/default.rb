@@ -17,13 +17,7 @@
 # limitations under the License.
 #
 
-
-
-if platform_family?("rhel") && node["platform_version"].to_i == 7
-  package "iptables-services"
-else
-  package "iptables"
-end
+package "iptables" 
 
 execute "rebuild-iptables" do
   command "/usr/sbin/rebuild-iptables"
@@ -53,9 +47,6 @@ when "ubuntu", "debian"
   end
 end
 
-if node["iptables"]["install_rules"]
-  iptables_rule "all_established"
-  iptables_rule "all_icmp"
-  iptables_rule "prefix"
-  iptables_rule "postfix"
-end
+
+iptables_rule "all_established"
+iptables_rule "all_icmp"

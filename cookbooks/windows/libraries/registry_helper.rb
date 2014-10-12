@@ -24,7 +24,7 @@
 
 if RUBY_PLATFORM =~ /mswin|mingw32|windows/
   require 'win32/registry'
-  require_relative 'wmi_helper'
+  require 'ruby-wmi'
 end
 
 module Windows
@@ -105,7 +105,7 @@ module Windows
           end
           if cur_val != val
             Chef::Log.debug("setting #{key}=#{val}")
-
+            
             if type.nil?
               type = :string
             end
@@ -252,14 +252,7 @@ module Windows
 
     def resolve_user_to_sid(username)
       begin
-        user_query = execute_wmi_query("select * from Win32_UserAccount where Name='#{username}'")
-        sid = nil
-
-        user_query.each do |user|
-          sid = wmi_object_property(user, 'sid')
-          break
-        end
-
+        sid = WMI::Win32_UserAccount.find(:first, :conditions => {:name => username}).sid
         Chef::Log.debug("Resolved user SID to #{sid}")
         return sid
       rescue

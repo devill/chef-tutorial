@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mod_dav_fs
+# Recipe:: dav_fs
 #
 # Copyright 2011-2013, Atriso
 #
@@ -18,6 +18,4 @@
 #
 
 include_recipe 'apache2::mod_dav'
-apache_module 'dav_fs' do
-  conf true
-end
+apache_module 'dav_fs'

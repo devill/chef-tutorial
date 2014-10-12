@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mod_dav
+# Recipe:: dav
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

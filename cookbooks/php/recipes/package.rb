@@ -58,7 +58,6 @@ else
   node['php']['packages'].each do |pkg|
     package pkg do
       action :install
-      options node['php']['package_options']
     end
   end
 end

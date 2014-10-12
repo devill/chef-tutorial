@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mod_env
+# Recipe:: env
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

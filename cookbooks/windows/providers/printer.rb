@@ -17,7 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-use_inline_resources if defined?(use_inline_resources)
 
 # Support whyrun
 def whyrun_supported?
@@ -73,7 +72,7 @@ def create_printer
 
   port_name = "IP_#{ new_resource.ipv4_address }"
 
-  powershell_script "Creating printer: #{ new_resource.name }" do
+  powershell "Creating printer: #{ new_resource.name }" do
     code <<-EOH
 
       Set-WmiInstance -class Win32_Printer `
@@ -92,7 +91,7 @@ def create_printer
 end
 
 def delete_printer
-  powershell_script "Deleting printer: #{ new_resource.name }" do
+  powershell "Deleting printer: #{ new_resource.name }" do
     code <<-EOH
       $printer = Get-WMIObject -class Win32_Printer -EnableAllPrivileges -Filter "name = '#{ new_resource.name }'"
       $printer.Delete()

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mod_cloudflare
+# Recipe:: cloudflare
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
@@ -18,11 +18,11 @@
 #
 
 apt_repository 'cloudflare' do
-  uri 'http://pkg.cloudflare.com'
+  uri          'http://pkg.cloudflare.com'
   distribution node['lsb']['codename']
-  components ['main']
-  key 'http://pkg.cloudflare.com/pubkey.gpg'
-  action :add
+  components   ['main']
+  key          'http://pkg.cloudflare.com/pubkey.gpg'
+  action       :add
 end
 
 package 'libapache2-mod-cloudflare' do

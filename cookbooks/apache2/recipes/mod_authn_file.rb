@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mod_authn_file
+# Recipe:: authn_file
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

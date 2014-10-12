@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mod_expires
+# Recipe:: expires
 #
 # Copyright 2008-2013, Opscode, Inc.
 #

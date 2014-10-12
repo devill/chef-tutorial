@@ -1,15 +1,6 @@
-v2.1.5 (2014-09-15)
--------------------
-- [#68] Add win_friendly_path to all appcmd.exe /physicalPath arguments
-
-v2.1.4 (2014-09-13)
--------------------
-- [#72] Adds chefspec matchers
-- [#57] Fixes site_id not being updated on a :config action
-
-v2.1.2 (2014-04-23)
--------------------
-- [COOK-4559] Remove invalid UTF-8 characters
+IIS Cookbook CHANGELOG
+======================
+This file is used to list changes made in each version of the IIS cookbook.
 
 
 v2.1.0 (2014-03-25)

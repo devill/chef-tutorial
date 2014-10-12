@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mod_proxy_http
+# Recipe:: proxy_http
 #
 # Copyright 2008-2013, Opscode, Inc.
 #
@@ -16,7 +16,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-include_recipe 'apache2::mod_proxy'
 
 apache_module 'proxy_http'

@@ -27,7 +27,7 @@ owner = homebrew_owner
 Chef::Log.debug("Homebrew owner is '#{homebrew_owner}'")
 
 remote_file homebrew_go do
-  source 'https://raw.githubusercontent.com/Homebrew/install/master/install'
+  source 'https://raw.github.com/Homebrew/homebrew/go/install'
   mode 00755
 end
 
@@ -36,13 +36,11 @@ execute homebrew_go do
   not_if { ::File.exist? '/usr/local/bin/brew' }
 end
 
-if node['homebrew']['auto-update']
-  package 'git' do
-    not_if 'which git'
-  end
+package 'git' do
+  not_if 'which git'
+end
 
-  execute 'update homebrew from github' do
-    user owner
-    command '/usr/local/bin/brew update || true'
-  end
+execute 'update homebrew from github' do
+  user owner
+  command '/usr/local/bin/brew update || true'
 end

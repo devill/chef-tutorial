@@ -2,6 +2,9 @@
 # Cookbook Name:: postgresql
 # Recipe:: ruby
 #
+# Author:: Joshua Timberman (<joshua@opscode.com>)
+# Copyright 2012 Opscode, Inc.
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -22,14 +25,7 @@ begin
   require 'pg'
 rescue LoadError
 
-  if platform_family?('ubuntu', 'debian')
-    e = execute 'apt-get update' do
-      action :nothing
-    end
-    e.run_action(:run) unless ::File.exists?('/var/lib/apt/periodic/update-success-stamp')
-  end
-
-  node.set['build-essential']['compile_time'] = true
+  node.set['build_essential']['compiletime'] = true
   include_recipe "build-essential"
   include_recipe "postgresql::client"
 
@@ -50,10 +46,14 @@ rescue LoadError
   node['postgresql']['client']['packages'].each do |pg_pack|
     resources("package[#{pg_pack}]").run_action(:install)
   end
+  
+  package "libpq-dev" do
+    action :nothing
+  end.run_action(:install)
 
   begin
     chef_gem "pg"
-  rescue Gem::Installer::ExtensionBuildError, Mixlib::ShellOut::ShellCommandFailed => e
+  rescue Gem::Installer::ExtensionBuildError => e
     # Are we an omnibus install?
     raise if RbConfig.ruby.scan(%r{(chef|opscode)}).empty?
     # Still here, must be omnibus. Lets make this thing install!
@@ -85,7 +85,11 @@ EOS
 
     lib_builder = execute 'generate pg gem Makefile' do
       # [COOK-3490] pg gem install requires full path on RHEL
-      command "PATH=$PATH:/usr/pgsql-#{node['postgresql']['version']}/bin #{RbConfig.ruby} extconf.rb"
+      if node['platform_family'] == 'rhel'
+        command "#{RbConfig.ruby} extconf.rb --with-pg-config=/usr/pgsql-#{node['postgresql']['version']}/bin/pg_config"
+      else
+        command "#{RbConfig.ruby} extconf.rb"
+      end
       cwd ext_dir
       action :nothing
     end

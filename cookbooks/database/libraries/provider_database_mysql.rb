@@ -74,7 +74,6 @@ class Chef
         end
 
         private
-        
         def exists?
           db.list_dbs.include?(@new_resource.database_name)
         end
@@ -86,8 +85,7 @@ class Chef
               @new_resource.connection[:username],
               @new_resource.connection[:password],
               nil,
-              @new_resource.connection[:port] || 3306,
-              @new_resource.connection[:socket] || nil
+              @new_resource.connection[:port] || 3306
             )
             connection.set_server_option ::Mysql::OPTION_MULTI_STATEMENTS_ON
             connection
@@ -98,6 +96,7 @@ class Chef
           @db.close rescue nil
           @db = nil
         end
+
       end
     end
   end
